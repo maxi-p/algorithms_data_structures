@@ -16,6 +16,7 @@
 class Solution {
     public TreeNode invertTree(TreeNode root) {
         invertUtil(root);
+        // qSolution(root);
         return root;
     }
 
@@ -33,6 +34,27 @@ class Solution {
             root.right = temp;
             invertUtil(root.left);
             invertUtil(root.right);
+        }
+    }
+
+    public void qSolution(TreeNode root){
+        ArrayList<TreeNode> q = new ArrayList<>();
+        q.add(root);
+
+        while(q.size() != 0){
+            int size = q.size();
+            for(int i=0; i<size; i++){
+                TreeNode cur = q.remove(0);
+                if(cur != null){
+                    q.add(cur.left);
+                    q.add(cur.right);
+
+                    System.out.println("Q rocks!!");
+                    TreeNode temp = cur.left;
+                    cur.left = cur.right;
+                    cur.right = temp;
+                }
+            }
         }
     }
 }
