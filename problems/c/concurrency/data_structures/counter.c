@@ -5,6 +5,25 @@
 
 #define NUMCPUS 4
 
+typedef struct non__counter_t
+{
+    int value;
+} non_counter_t;
+
+void non_init(non_counter_t *c)
+{
+    c->value = 0;
+}
+void increment(non_counter_t *c)
+{
+    c->value++;
+}
+
+void decrement(non_counter_t *c)
+{
+    c->value--;
+}
+
 typedef struct __counter_t
 {
     int global;                     // global count
@@ -34,6 +53,18 @@ void init(counter_t *c, int threshold)
 void update(counter_t *c, int threadID, int amt)
 {
     int cpu = threadID % NUMCPUS;
+    if(cpu == 0){
+        printf("1\n");
+    }
+    if(cpu == 1){
+        printf("\t2\n");
+    }
+    if(cpu == 2){
+        printf("\t\t3\n");
+    }
+    if(cpu == 3){
+        printf("\t\t\t4\n");
+    }
     pthread_mutex_lock(&c->llock[cpu]);
     c->local[cpu] += amt;
     if (c->local[cpu] >= c->threshold)
@@ -57,36 +88,52 @@ int get(counter_t *c)
 
 void *concurrent_count1(void *arg)
 {
-    counter_t *ctr = (counter_t *) arg;
-    for(int i=0; i<1000000; i++){
-        update(ctr, 1, 1);
+    int j=0;
+    // counter_t *ctr = (counter_t *)arg;
+    for (int i = 0; i < 1000000; i++)
+    {
+        // j++;
+        printf("1\n");
+        // update(ctr, 1, 1);
     }
 
     return NULL;
 }
 void *concurrent_count2(void *arg)
 {
-    counter_t *ctr = (counter_t *) arg;
-    for(int i=0; i<1000000; i++){
-        update(ctr, 2, 1);
+    int j=0;
+    // counter_t *ctr = (counter_t *)arg;
+    for (int i = 0; i < 1000000; i++)
+    {
+        // j++;
+        printf("\t2\n");
+        // update(ctr, 2, 1);
     }
 
     return NULL;
 }
 void *concurrent_count3(void *arg)
 {
-    counter_t *ctr = (counter_t *) arg;
-    for(int i=0; i<1000000; i++){
-        update(ctr, 3, 1);
+    int j=0;
+    // counter_t *ctr = (counter_t *)arg;
+    for (int i = 0; i < 1000000; i++)
+    {
+        // j++;
+        printf("\t\t3\n");
+        // update(ctr, 3, 1);
     }
 
     return NULL;
 }
 void *concurrent_count4(void *arg)
-{
-    counter_t *ctr = (counter_t *) arg;
-    for(int i=0; i<1000000; i++){
-        update(ctr, 4, 1);
+{   
+    int j=0;
+    // counter_t *ctr = (counter_t *)arg;
+    for (int i = 0; i < 1000000; i++)
+    {
+        // j++;
+        printf("\t\t\t4\n");
+        // update(ctr, 4, 1);
     }
 
     return NULL;
@@ -95,32 +142,34 @@ void *concurrent_count4(void *arg)
 int main(void)
 {
     clock_t t;
+    int test =0;
     int threshhold;
-    int non_concurrent;
-    pthread_t t1,t2,t3,t4;
+    non_counter_t non_concurrent;
+    pthread_t t1, t2, t3, t4;
     counter_t concurrent;
     double time_taken;
+    double time_taken2;
 
-    threshhold = 1024;
-    non_concurrent = 0;
+    threshhold = 1000000;
+    non_init(&non_concurrent);
     init(&concurrent, threshhold);
 
     // start
-    t = clock();
+    // t = clock();
 
-    for (int i = 0; i < 4000000; i++)
-    {
-        non_concurrent++;
-    }
+    // for (long i = 0; i < 4000000; i++)
+    // {
+    //     //    test++;        
+    //     printf("1\n");
+    // }
     // finish
-    t = clock() - t;
+    // t = clock() - t;
 
-    time_taken = ((double)t) / CLOCKS_PER_SEC; // in seconds
-    printf("Non-concurrent counter executed in %f seconds\n", time_taken);
-    printf("Result is: %d \n", non_concurrent);
+    time_taken2 = ((double)t) / CLOCKS_PER_SEC; // in seconds
 
-    t = clock();
-    
+
+    // t = clock();
+
     pthread_create(&t1, NULL, concurrent_count1, &concurrent);
     pthread_create(&t2, NULL, concurrent_count2, &concurrent);
     pthread_create(&t3, NULL, concurrent_count3, &concurrent);
@@ -130,9 +179,11 @@ int main(void)
     pthread_join(t3, NULL);
     pthread_join(t4, NULL);
 
-    t = clock() - t;
+    // t = clock() - t;
     time_taken = ((double)t) / CLOCKS_PER_SEC; // in seconds
 
+    printf("Non-concurrent counter executed in %f seconds\n", time_taken2);
+    printf("Result is: %d \n", non_concurrent.value);
     printf("Concurrent counter executed in %f seconds\n", time_taken);
     printf("Result is: %d \n", concurrent.global);
     return 0;
