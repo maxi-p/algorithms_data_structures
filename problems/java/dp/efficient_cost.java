@@ -3,49 +3,37 @@
 import java.util.Arrays;
 // import java.util.Integer;
 
-public class Solution{
-    public static int [][]dp;
-    public static int limit;
-    public static int len;
-    public static int [] copy;
-    public static int min = Integer.MAX_VALUE;
-
+public class efficient_cost{
+    public static int[] arr = {1,3,4,5,2,6};
+    public static int k = 3;
+    public static int[]dp;
     public static void main(String [] args){
-        int [] arr = {1,3,4,5,2,6};
-        System.out.println(calculateCost(arr, 4));
+        dp = new int[arr.length];
+        Arrays.fill(dp,-1);
+        System.out.println(calcPartition(0));
     }
+    // k = 3
+    // 1,3,4,5,2,6
+    // 6
+    public static int calcPartition(int i){
+        if(i==arr.length)
+            return 0;
 
-    public static int calculateCost(int arr[], int threshold){
-        copy = arr;
-        len = arr.length;
-        dp = new int [len][len];
-        for(int i=0; i<len; i++){
-                Arrays.fill(dp[i],-1);
+        if(dp[i]!=-1)
+            return dp[i];
+
+        int index = i;
+        int res = Integer.MAX_VALUE;
+        int cur = 1;
+        int sum = 0;
+        while(cur <= k && i<arr.length){
+            sum = Math.max(sum,arr[i]);
+            res = Math.min(res,sum+calcPartition(i+1));
+            cur++;
+            i++;
         }
-        limit = threshold;
-        return 0;
-    }
-    
-    public int dp(int i, int j){
-        if(j > len-1){
-            j = len-1;
-        }
-        if(dp[i][j] != -1){
-            return dp[i][j];
-        }
-        if(i == j){
-            return copy[i];
-        }
-        
-        int cost = 0;
-        int part = i;
-        int localLen = j-i+1;
-        //TODO: 
-        for(int i = limit; i > 0; i--){
-            
-        }
-        
-        int cur;
+        dp[index] = res;
+        return dp[index];
     }
 
 }
