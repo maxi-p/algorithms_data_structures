@@ -1,3 +1,7 @@
 # Compiled Java #
 #################
 *.class
+
+# File System  #
+################
+.DS_Store
