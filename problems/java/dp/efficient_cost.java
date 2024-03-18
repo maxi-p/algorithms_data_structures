@@ -1,7 +1,4 @@
-// brute force way
-// generate all partitioned subarray
 import java.util.Arrays;
-// import java.util.Integer;
 
 public class efficient_cost{
     public static int[] arr = {1,3,4,5,2,6};

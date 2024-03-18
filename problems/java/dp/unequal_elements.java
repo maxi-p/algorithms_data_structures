@@ -1,6 +1,5 @@
 import java.util.Arrays;
 
-
 public class unequal_elements {
     public static int[] skills = {1,1,2,3,2,1};
     public static int[][] dp;
