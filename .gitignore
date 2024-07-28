@@ -5,3 +5,9 @@
 # File System  #
 ################
 .DS_Store
+
+# Compiled C #
+*.out
+
+# VS Code settings #
+.vscode
