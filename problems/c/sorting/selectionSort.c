@@ -1,5 +1,3 @@
-#include <math.h>
-
 void swapTwoElements(int *arr, int indexFirst, int indexSecond);
 
 void selectionSort(int *arr, int length)

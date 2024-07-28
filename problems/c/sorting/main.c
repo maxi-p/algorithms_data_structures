@@ -3,6 +3,7 @@
 #include <string.h>
 #include "selectionSort.h"
 #include "bubbleSort.h"
+#include "insertionSort.h"
 
 int main(int argc, char **argv)
 {
@@ -31,7 +32,7 @@ int main(int argc, char **argv)
       printf("%d\n", array[i]);
     }
 
-    bubbleSort(array, arrayLength);
+    insertionSort(array, arrayLength);
     printf("\nAfter the sort:\n--------------\n");
     for (int i=0; i< arrayLength; i++)
     {
