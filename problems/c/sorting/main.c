@@ -5,6 +5,7 @@
 #include "bubbleSort.h"
 #include "insertionSort.h"
 #include "mergeSort.h"
+#include "quickSort.h"
 
 int main(int argc, char **argv)
 {
@@ -33,7 +34,7 @@ int main(int argc, char **argv)
       printf("%d\n", array[i]);
     }
 
-    mergeSort(array, arrayLength);
+    quickSort(array, arrayLength);
     printf("\nAfter the sort:\n--------------\n");
     for (int i=0; i< arrayLength; i++)
     {
