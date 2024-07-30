@@ -8,6 +8,7 @@ typedef struct treeNode {
 
 treeNode* createTreeNode(int value);
 treeNode *insertValue(treeNode* root, int value);
+treeNode *deleteValue(treeNode* root, int value);
 void freeTree(treeNode *root);
 void traversePreorder(treeNode* root);
 void traverseInorder(treeNode* root);

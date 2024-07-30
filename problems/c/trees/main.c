@@ -24,22 +24,25 @@ int main(int argc, char **argv)
     fscanf(fp, "%d, ", &array[i]);
 
   for (int i = 0; i < length; i++)
-    printf("%d ", array[i]);
-  printf("\n");
-
-  for (int i = 0; i < length; i++)
     root = insertValue(root, array[i]);
 
   printf("\nPreorder traversal: \n");
   traversePreorder(root);
 
-  printf("\nInorder traversal: \n");
+  printf("Inorder traversal: \n");
   traverseInorder(root);
 
-  printf("\nPostorder traversal: \n");
-  traversePostorder(root);
-  
-  freeTree(root);
+  for (int i = 0; i < length; i++)
+  {
+    root = deleteValue(root, array[i]);
+    printf("\nPreorder traversal: \n");
+    traversePreorder(root);
 
+    printf("Inorder traversal: \n");
+    traverseInorder(root);
+  }
+
+  freeTree(root);
+  fclose(fp);
   return 0;
 }
