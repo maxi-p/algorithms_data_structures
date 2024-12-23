@@ -34,7 +34,13 @@ int main(int argc, char **argv)
       printf("%d\n", array[i]);
     }
 
+    /* The 5 sorting algorithms */ 
+    // selectionSort(array, arrayLength);
+    // bubbleSort(array, arrayLength);
+    // insertionSort(array, arrayLength);
+    // mergeSort(array, arrayLength);
     quickSort(array, arrayLength);
+
     printf("\nAfter the sort:\n--------------\n");
     for (int i=0; i< arrayLength; i++)
     {
