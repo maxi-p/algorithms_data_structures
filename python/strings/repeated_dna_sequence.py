@@ -6,12 +6,9 @@ class Solution:
         res = []
         while i < size - 9:
             cur = s[i:i+10]
-            print(len(cur))
             if cur in hash:
                 hash[cur] += 1
-                if hash[cur] == 2:
-                    res.append(cur)     
             else:
                 hash[cur] = 1
             i += 1
-        return res
+        return [key for key,value in hash.items() if value > 1]
