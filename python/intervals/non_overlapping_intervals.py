@@ -1,0 +1,15 @@
+from typing import List
+class Solution:
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        intervals = sorted(intervals)
+        prevEnd = intervals[0][1]
+        res = 0
+
+        for start, end in intervals[1:]:
+            if start >= prevEnd:
+                prevEnd = end
+            else:
+                res += 1
+                prevEnd = min(prevEnd, end)
+
+        return res

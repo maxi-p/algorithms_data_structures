@@ -1,3 +1,4 @@
+from typing import List
 class Solution:
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
         if grid == None or len(grid) == 0:
@@ -31,3 +32,39 @@ class Solution:
                     globalMax = max(curSize, globalMax)
 
         return globalMax
+    
+    def maxAreaOfIsland2(self, grid: List[List[int]]) -> int:
+        if len(grid) == 0:
+            return 0
+
+        n,m = len(grid), len(grid[0])
+        visited = set()
+        cur = 0
+        res = 0
+
+        def dfs(i, j):
+            nonlocal cur
+            
+            if i >= n or i < 0 or j >= m or j < 0:
+                return
+            
+            if grid[i][j] == 1 and (i,j) not in visited:
+                visited.add((i,j))
+                cur += 1
+
+                dfs(i+1, j)
+                dfs(i-1, j)
+                dfs(i, j+1)
+                dfs(i, j-1)
+        
+        for i in range(n):
+            for j in range(m):
+                if (i,j) not in visited:
+                    cur = 0
+                    dfs(i,j)
+                    res = max(res, cur)
+        
+        return res
+
+
+        

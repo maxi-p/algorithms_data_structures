@@ -1,1 +1,0 @@
-print(max(float('inf'), 1000000000000))
