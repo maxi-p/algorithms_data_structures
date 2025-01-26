@@ -11,3 +11,6 @@
 
 # VS Code settings #
 .vscode
+
+# Secret folder
+/ignore/*
